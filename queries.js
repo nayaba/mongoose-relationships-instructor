@@ -31,7 +31,7 @@ const createTodo = async () => {
 }
 
 const findTodos = async () => {
-    const todos = await Todo.find({})
+    const todos = await Todo.find({}).populate('assignee')
     console.log('All todos: ', todos)
 }
 
@@ -144,5 +144,5 @@ const runQueries = async () => {
     // await updateSubtask()
     // await findParentAndRemoveSubtask()
     // await createUser()
-    await assignTodo()
+    // await assignTodo()
 }
