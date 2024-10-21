@@ -61,6 +61,19 @@ const findSubtask = async () => {
 
 }
 
+// delete - remove a subtask
+const removeSubtask = async () => {
+    const todoId = '6715f772c795ab2d1780d210'
+    const subtaskId = '6715fe95f088864a64141776'
+
+    const todo = await Todo.findById(todoId)
+    todo.subtasks.pull(subtaskId)
+
+    await todo.save()
+
+    console.log('Updated document: ', todo)
+}
+
 // todo id = 6715f772c795ab2d1780d210
 // subtask id = 6715fe95f088864a64141776
 /*------------------------------- Run Queries -------------------------------*/
@@ -70,5 +83,6 @@ const runQueries = async () => {
     // await createTodo()
     // await findTodos()
     // await createSubtask()
-    await findSubtask()
+    // await findSubtask()
+    await removeSubtask()
 }
