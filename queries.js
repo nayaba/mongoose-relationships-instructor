@@ -4,6 +4,7 @@ dotenv.config()
 
 const mongoose = require('mongoose')
 const Todo = require('./models/todo')
+const User = require('./models/user')
 
 const connect = async () => {
     await mongoose.connect(process.env.MONGODB_URI)
@@ -104,9 +105,33 @@ const findParentAndRemoveSubtask = async () => {
     console.log('Updated todo: ', todo)
 }
 
+const createUser = async () => {
+    const userData = {
+        name: 'Alex',
+        email: 'alex@email.com'
+    }
 
+    const user = await User.create(userData)
+    console.log('New user: ', user)
+
+}
+
+const assignTodo = async () => {
+    const todoId = '6715f772c795ab2d1780d210'
+    const userId = '67162881ce9c18d9f53350a7'
+
+    const updatedTodo = await Todo.findByIdAndUpdate(
+        todoId,
+        { assignee : userId },
+        { new: true }
+    )
+
+    console.log('Updated document: ', updatedTodo)
+}
+
+// user id = 67162881ce9c18d9f53350a7
 // todo id = 6715f772c795ab2d1780d210
-// subtask id = 671603bafea347cfe241664b
+
 /*------------------------------- Run Queries -------------------------------*/
 
 const runQueries = async () => {
@@ -117,5 +142,7 @@ const runQueries = async () => {
     // await findSubtask()
     // await removeSubtask()
     // await updateSubtask()
-    await findParentAndRemoveSubtask()
+    // await findParentAndRemoveSubtask()
+    // await createUser()
+    await assignTodo()
 }
