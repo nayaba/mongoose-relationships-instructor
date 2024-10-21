@@ -34,6 +34,7 @@ const findTodos = async () => {
     console.log('All todos: ', todos)
 }
 
+// create subtask
 const createSubtask = async () => {
     const todoId = '6715f772c795ab2d1780d210'
     const todo = await Todo.findById(todoId)
@@ -48,6 +49,18 @@ const createSubtask = async () => {
     console.log('Modified todo: ', todo)
 }
 
+// show - find one subtask
+const findSubtask = async () => {
+    const todoId = '6715f772c795ab2d1780d210'
+    const subtaskId = '6715fe95f088864a64141776'
+
+    const todo = await Todo.findById(todoId)
+    const subTask = todo.subtasks.id(subtaskId)
+
+    console.log('Subdocument: ', subTask)
+
+}
+
 // todo id = 6715f772c795ab2d1780d210
 // subtask id = 6715fe95f088864a64141776
 /*------------------------------- Run Queries -------------------------------*/
@@ -56,5 +69,6 @@ const runQueries = async () => {
     console.log('Queries running')
     // await createTodo()
     // await findTodos()
-    await createSubtask()
+    // await createSubtask()
+    await findSubtask()
 }
