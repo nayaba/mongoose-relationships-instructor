@@ -40,7 +40,7 @@ const createSubtask = async () => {
     const todo = await Todo.findById(todoId)
 
     const subtaskData = {
-        text: 'Learn how props work',
+        text: 'Eat lunch',
         isComplete: false,
     }
 
@@ -88,6 +88,22 @@ const updateSubtask = async () => {
     console.log('Updated document: ', todo)
 }
 
+// find parent from subdoc
+const findParentAndRemoveSubtask = async () => {
+    const todo = await Todo.findOne({
+        'subtasks.text': 'Learn how props work'
+    })
+
+    const subtask = todo.subtasks.find((subTask) => {
+        return subTask.text === 'Learn how props work'
+    })
+
+    subtask.deleteOne()
+
+    await todo.save()
+    console.log('Updated todo: ', todo)
+}
+
 
 // todo id = 6715f772c795ab2d1780d210
 // subtask id = 671603bafea347cfe241664b
@@ -100,5 +116,6 @@ const runQueries = async () => {
     // await createSubtask()
     // await findSubtask()
     // await removeSubtask()
-    await updateSubtask()
+    // await updateSubtask()
+    await findParentAndRemoveSubtask()
 }
